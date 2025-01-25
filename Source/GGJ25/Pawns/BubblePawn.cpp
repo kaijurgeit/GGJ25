@@ -20,5 +20,10 @@ ABubblePawn::ABubblePawn()
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 	Mesh->SetupAttachment(RootComponent);
 	
-	Movement = CreateDefaultSubobject<UFloatingPawnMovement>("Movement");
+	FloatingMovement = CreateDefaultSubobject<UFloatingPawnMovement>("Floating Movement");
+}
+
+UFloatingPawnMovement* ABubblePawn::GetFloatingMovement()
+{
+	return FloatingMovement;
 }

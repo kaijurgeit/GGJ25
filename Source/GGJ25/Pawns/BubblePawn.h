@@ -18,6 +18,8 @@ class GGJ25_API ABubblePawn : public APawn
 public:
 	ABubblePawn();
 
+	UFloatingPawnMovement* GetFloatingMovement();
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GGJ25|Movement")
 	TObjectPtr<USphereComponent> SphereComponent;
@@ -26,5 +28,5 @@ protected:
 	TObjectPtr<UStaticMeshComponent> Mesh;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GGJ25|Movement")
-	TObjectPtr<UFloatingPawnMovement> Movement;
+	TObjectPtr<UFloatingPawnMovement> FloatingMovement;
 };
