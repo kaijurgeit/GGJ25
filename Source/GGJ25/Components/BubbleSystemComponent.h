@@ -32,6 +32,7 @@ struct FBubbleMatching
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerBubbleAssignedEvent);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCreateBubbleEvent, EBubbleType, BubbleType, float, Position);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSuccessfulMatchEvent);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFailedMatchEvent);
 
@@ -43,23 +44,38 @@ class GGJ25_API UBubbleSystemComponent : public UActorComponent
 public:	
 	UBubbleSystemComponent();
 
-	UFUNCTION(BlueprintCallable)
-	void Collide(EBubbleType BubbleType);	                                                           
+	UFUNCTION(BlueprintCallable, Category = "GGJ25|Gameplay")
+	void Collide(EBubbleType BubbleType);
 
-	UPROPERTY(BlueprintAssignable)
+	UPROPERTY(BlueprintAssignable, Category = "GGJ25|Gameplay")
 	FOnPlayerBubbleAssignedEvent OnPlayerBubbleAssignedEvent;
 
-	UPROPERTY(BlueprintAssignable)
+	UPROPERTY(BlueprintAssignable, Category = "GGJ25|Gameplay")
+	FOnCreateBubbleEvent OnCreateBubbleEvent;
+
+	UPROPERTY(BlueprintAssignable, Category = "GGJ25|Gameplay")
 	FOnSuccessfulMatchEvent OnSuccessfulMatchEvent;
 
-	UPROPERTY(BlueprintAssignable)
+	UPROPERTY(BlueprintAssignable, Category = "GGJ25|Gameplay")
 	FOnFailedMatchEvent OnFailedMatchEvent;
 	
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category = "GGJ25|Gameplay")
 	EBubbleType CurrentPlayerBubbleType;
 	
 	UPROPERTY(EditDefaultsOnly)
 	TArray<FBubbleMatching> BubbleMatchEntries;
+
+	UPROPERTY(EditDefaultsOnly)
+	float MaxBubblesPerSecond;
+
+	UPROPERTY(EditDefaultsOnly)
+	float BubbleSpawnIntervalSeconds;
+
+	UPROPERTY(EditDefaultsOnly)
+	float BubbleSpawnAreaLength;
+
+	UPROPERTY(EditDefaultsOnly)
+	float BubbleRadius;
 
 protected:
 	virtual void BeginPlay() override;
@@ -69,4 +85,9 @@ public:
 
 private:
 	std::map<EBubbleType, FBubbleMatching> BubbleMatching;
+	FTimerHandle TimerHandle;
+
+	void CreateBubbles();
+	static EBubbleType GetRandomBubbleType();
+	float GetRandomBubblePosition() const;
 };
