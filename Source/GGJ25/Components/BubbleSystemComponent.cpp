@@ -48,19 +48,12 @@ void UBubbleSystemComponent::CreateBubbles()
 	int BubblesToSpawn = FMath::RandRange(1, MaxBubblesToSpawn);
 	for (int i = 0; i < BubblesToSpawn; ++i)
 	{
-		OnCreateBubbleEvent.Broadcast(GetRandomBubbleType(), GetRandomBubblePosition());
+		OnCreateBubbleEvent.Broadcast(GetRandomBubbleType());
 	}
-	OnCreateBubbleEvent.Broadcast(EBubbleType::Red, 0.0f);
 }
 
 EBubbleType UBubbleSystemComponent::GetRandomBubbleType()
 {
 	return static_cast<EBubbleType>(FMath::RandRange(static_cast<int8>(EBubbleType::None) + 1, static_cast<int8>(EBubbleType::End) - 1));
-}
-
-float UBubbleSystemComponent::GetRandomBubblePosition() const
-{
-	// TODO: Calculate real position.
-	return 0;
 }
 
