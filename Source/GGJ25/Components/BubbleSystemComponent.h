@@ -32,7 +32,7 @@ struct FBubbleMatching
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerBubbleAssignedEvent);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnCreateBubbleEvent, EBubbleType, BubbleType, float, Position);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCreateBubbleEvent, EBubbleType, BubbleType);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSuccessfulMatchEvent);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFailedMatchEvent);
 
@@ -89,5 +89,4 @@ private:
 
 	void CreateBubbles();
 	static EBubbleType GetRandomBubbleType();
-	float GetRandomBubblePosition() const;
 };
