@@ -26,11 +26,14 @@ protected:
 	float Speed;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GGJ25|AI")
+	float YOffset;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GGJ25|AI")
 	FVector MoveDirection;
 
 	ABubblePawn* GetBubblePawn() { return BubblePawn; }
-	UFloatingPawnMovement* GetFloatingMovement() { return BubblePawn->GetFloatingMovement(); }
 
 private:
+	UPROPERTY()
 	TObjectPtr<ABubblePawn> BubblePawn;
 };

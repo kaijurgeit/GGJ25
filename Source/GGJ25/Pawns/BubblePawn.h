@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameFramework/DefaultPawn.h"
 #include "GameFramework/Pawn.h"
 #include "BubblePawn.generated.h"
 
@@ -11,22 +12,10 @@ class USphereComponent;
 class UFloatingPawnMovement;
 
 UCLASS()
-class GGJ25_API ABubblePawn : public APawn
+class GGJ25_API ABubblePawn : public ADefaultPawn
 {
 	GENERATED_BODY()
-
+	
 public:
-	ABubblePawn();
-
-	UFloatingPawnMovement* GetFloatingMovement();
-
-protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GGJ25|Movement")
-	TObjectPtr<USphereComponent> SphereComponent;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GGJ25|Movement")
-	TObjectPtr<UStaticMeshComponent> Mesh;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GGJ25|Movement")
-	TObjectPtr<UFloatingPawnMovement> FloatingMovement;
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override {};
 };
