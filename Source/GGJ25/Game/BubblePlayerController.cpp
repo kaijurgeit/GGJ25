@@ -23,7 +23,6 @@ void ABubblePlayerController::SetupInputComponent()
 void ABubblePlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
-
 	BubblePawn = Cast<ABubblePawn>(InPawn);
 }
 

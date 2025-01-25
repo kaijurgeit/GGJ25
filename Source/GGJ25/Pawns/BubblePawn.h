@@ -3,30 +3,25 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameFramework/DefaultPawn.h"
 #include "GameFramework/Pawn.h"
 #include "BubblePawn.generated.h"
 
+class UMaterialBillboardComponent;
 struct FInputActionValue;
 class USphereComponent;
 class UFloatingPawnMovement;
 
 UCLASS()
-class GGJ25_API ABubblePawn : public APawn
+class GGJ25_API ABubblePawn : public ADefaultPawn
 {
 	GENERATED_BODY()
-
+	
 public:
 	ABubblePawn();
-
-	UFloatingPawnMovement* GetFloatingMovement();
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override {};
 
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GGJ25|Movement")
-	TObjectPtr<USphereComponent> SphereComponent;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GGJ25|Movement")
-	TObjectPtr<UStaticMeshComponent> Mesh;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GGJ25|Movement")
-	TObjectPtr<UFloatingPawnMovement> FloatingMovement;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GGJ25|Pawn")
+	TObjectPtr<UMaterialBillboardComponent> MaterialBillboard; 
 };
