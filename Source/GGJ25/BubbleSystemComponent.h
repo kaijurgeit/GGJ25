@@ -1,5 +1,7 @@
 #pragma once
 
+#include <map>
+
 #include "CoreMinimal.h"
 #include "FBubbleMatching.h"
 #include "Components/ActorComponent.h"
@@ -40,4 +42,7 @@ protected:
 
 public:	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+private:
+	std::map<EBubbleType, FBubbleMatching> BubbleMatching;
 };

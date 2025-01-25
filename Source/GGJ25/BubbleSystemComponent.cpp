@@ -7,12 +7,29 @@ UBubbleSystemComponent::UBubbleSystemComponent()
 
 void UBubbleSystemComponent::Collide(EBubbleType BubbleType)
 {
+	try
+	{
+		if (BubbleMatching.at(CurrentPlayerBubbleType).Matches.Contains(BubbleType))
+			OnSuccessfulMatchEvent.Broadcast();
+		else
+			OnFailedMatchEvent.Broadcast();
+	}
+	catch (const std::out_of_range&)
+	{	
+		UE_LOG(LogTemp, Error, TEXT("Failed to find bubble type %i"), static_cast<int>(CurrentPlayerBubbleType));
+		OnFailedMatchEvent.Broadcast();
+	}
 }
 
 void UBubbleSystemComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	CurrentPlayerBubbleType = EBubbleType::Red;
+	for (auto& Entry : BubbleMatchEntries)
+	{
+		BubbleMatching.insert({Entry.BubbleType, Entry});
+	}
+
+	CurrentPlayerBubbleType = static_cast<EBubbleType>(FMath::RandRange(static_cast<int8>(EBubbleType::None) + 1, static_cast<int8>(EBubbleType::End) - 1));
 	OnPlayerBubbleAssignedEvent.Broadcast();
 }
 
