@@ -3,9 +3,33 @@
 #include <map>
 
 #include "CoreMinimal.h"
-#include "FBubbleMatching.h"
 #include "Components/ActorComponent.h"
 #include "BubbleSystemComponent.generated.h"
+
+UENUM(BlueprintType)
+enum class EBubbleType : uint8
+{
+	None = 0 UMETA(Hidden),
+	Red,
+	Green,
+	Blue,
+	End UMETA(Hidden)
+};
+
+
+USTRUCT(BlueprintType)
+struct FBubbleMatching
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
+	EBubbleType BubbleType;
+	
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
+	TArray<EBubbleType> Matches;
+};	
+
+
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerBubbleAssignedEvent);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSuccessfulMatchEvent);
