@@ -10,3 +10,14 @@ const UMaterial* UBubbleMaterialDataAsset::GetMaterial(EBubbleType BubbleType) c
 		
 	return nullptr;
 }
+
+const UTexture2D* UBubbleMaterialDataAsset::GetTexture(EBubbleType BubbleType) const
+{
+	for (auto& Item : BubbleMaterials)
+	{
+		if (Item.BubbleType == BubbleType)
+			return Item.Texture;
+	}
+		
+	return nullptr;
+}
