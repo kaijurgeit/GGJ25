@@ -6,7 +6,7 @@
 void UInventoryWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
-	//ItemManager = NewObject<UItemUIManager>(this);
+	ItemManager = NewObject<UItemUIManager>(this);
 	
 	if (ItemManager)
 	{
@@ -18,6 +18,7 @@ void UInventoryWidget::PopulateUI()
 {
 	if (!ItemContainer || !ItemManager)
 	{
+		UE_LOG(LogTemp, Error, TEXT("Could not populate UI"));
 		return;
 	}
 
@@ -25,12 +26,14 @@ void UInventoryWidget::PopulateUI()
 	ItemContainer->ClearChildren();
 
 	// Get the list of item textures from the manager
-	TArray<UTexture2D*> ItemTextures = ItemManager->GetItemTextures();
+	TArray<UMaterialInterface*> ItemTextures = ItemManager->GetItemTextures();
+	UE_LOG(LogTemp, Display, TEXT("Number of items to populate in UI: %i"), ItemTextures.Num());
 
-	for (UTexture2D* ItemTexture : ItemTextures)
+	for (UMaterialInterface* ItemTexture : ItemTextures)
 	{
 		if (ItemTexture)
 		{
+			UE_LOG(LogTemp, Display, TEXT("Adding a texture to InventoryWidget"));
 			// Create a new Image widget
 			UImage* NewItemImage = NewObject<UImage>(this);
 
@@ -42,5 +45,14 @@ void UInventoryWidget::PopulateUI()
 			// Add the Image widget to the container
 			ItemContainer->AddChild(NewItemImage);
 		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Missing texture added to InventoryWidget"));
+		}
 	}
+}
+
+UItemUIManager* UInventoryWidget::GetItemManager()
+{
+	return ItemManager;
 }

@@ -4,15 +4,15 @@
 
 UItemUIManager::UItemUIManager()
 {
-	ItemTextures = TArray<UTexture2D*>();
+	ItemTextures = TArray<UMaterialInterface*>();
 }
 
-TArray<UTexture2D*> UItemUIManager::GetItemTextures() const
+TArray<UMaterialInterface*> UItemUIManager::GetItemTextures() const
 {
 	return ItemTextures;
 }
 
-void UItemUIManager::AddItemTexture(UTexture2D* NewTexture)
+void UItemUIManager::AddItemTexture(UMaterialInterface* NewTexture)
 {
 	if (NewTexture)
 	{
@@ -20,7 +20,7 @@ void UItemUIManager::AddItemTexture(UTexture2D* NewTexture)
 	}
 }
 
-void UItemUIManager::RemoveItemTexture(UTexture2D* TextureToRemove)
+void UItemUIManager::RemoveItemTexture(UMaterialInterface* TextureToRemove)
 {
 	if (TextureToRemove)
 	{

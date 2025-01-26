@@ -2,11 +2,11 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "ItemUIManager.h"
 #include "InventoryWidget.generated.h"
 
 class UHorizontalBox;
 class UTexture2D;
-class UItemUIManager;
 
 UCLASS()
 class GGJ25_API UInventoryWidget : public UUserWidget
@@ -17,15 +17,19 @@ public:
     virtual void NativeConstruct() override;
 
     // Function to populate the UI with items
+    UFUNCTION(BlueprintCallable)
     void PopulateUI();
+
+    UFUNCTION(BlueprintCallable)
+    UItemUIManager* GetItemManager();
 
 protected:
     // The container widget for dynamically added images
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(EditAnywhere, meta = (BindWidget))
     UHorizontalBox* ItemContainer;
 
     // Reference to the Item Manager
-    UPROPERTY()
+    UPROPERTY(EditAnywhere)
     UItemUIManager* ItemManager;
 };
 

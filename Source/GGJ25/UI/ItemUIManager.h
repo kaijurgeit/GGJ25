@@ -17,15 +17,15 @@ public:
 
 	// Returns the list of item textures
 	UFUNCTION(BlueprintCallable, Category = "Item UI")
-	TArray<UTexture2D*> GetItemTextures() const;
+	TArray<UMaterialInterface*> GetItemTextures() const;
 
 	// Adds a new texture to the list
 	UFUNCTION(BlueprintCallable, Category = "Item UI")
-	void AddItemTexture(UTexture2D* NewTexture);
+	void AddItemTexture(UMaterialInterface* NewTexture);
 
 	// Removes a texture from the list
 	UFUNCTION(BlueprintCallable, Category = "Item UI")
-	void RemoveItemTexture(UTexture2D* TextureToRemove);
+	void RemoveItemTexture(UMaterialInterface* TextureToRemove);
 
 	// Clears all textures from the list
 	UFUNCTION(BlueprintCallable, Category = "Item UI")
@@ -33,6 +33,6 @@ public:
 
 private:
 	//UPROPERTY()
-	TArray<UTexture2D*> ItemTextures;
+	TArray<UMaterialInterface*> ItemTextures;
 };
 
