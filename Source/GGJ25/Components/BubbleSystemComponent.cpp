@@ -10,7 +10,6 @@ void UBubbleSystemComponent::Collide(EBubbleType BubbleType)
 {
 	try
 	{
-		CurrentPlayerBubbleType = BubbleType;
 		UpdateMatchingPlayerBubbleTypes();
 		if (BubbleMatching.at(CurrentPlayerBubbleType).Matches.Contains(BubbleType))
 			OnSuccessfulMatchEvent.Broadcast();
@@ -22,6 +21,8 @@ void UBubbleSystemComponent::Collide(EBubbleType BubbleType)
 		UE_LOG(LogTemp, Error, TEXT("Failed to find bubble type %i"), static_cast<int>(CurrentPlayerBubbleType));
 		OnFailedMatchEvent.Broadcast();
 	}
+	CurrentPlayerBubbleType = BubbleType;
+	OnPlayerBubbleAssignedEvent.Broadcast();
 }
 
 void UBubbleSystemComponent::BeginPlay()
@@ -35,7 +36,7 @@ void UBubbleSystemComponent::BeginPlay()
 	FTimerManager& TimerManager = GetWorld()->GetTimerManager();
 	TimerManager.SetTimer(TimerHandle, this, &UBubbleSystemComponent::CreateBubbles, BubbleSpawnIntervalSeconds, true, BubbleSpawnIntervalSeconds);
 
-	CurrentPlayerBubbleType = GetRandomBubbleType();
+	// CurrentPlayerBubbleType = GetRandomBubbleType();
 	UpdateMatchingPlayerBubbleTypes();
 	OnPlayerBubbleAssignedEvent.Broadcast();
 }

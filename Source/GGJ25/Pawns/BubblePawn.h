@@ -23,8 +23,13 @@ public:
 	ABubblePawn();
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override {};
 
+	virtual void BeginPlay() override;
+
 	UFUNCTION(BlueprintCallable)
 	virtual void SetIconMaterial(UMaterial* Material);
+
+	UFUNCTION(BlueprintCallable)
+	UFloatingPawnMovement* GetFloatingMovement();
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "GGJ25|Pawn")

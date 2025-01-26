@@ -7,6 +7,7 @@
 #include "Components/MaterialBillboardComponent.h"
 #include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "GameFramework/FloatingPawnMovement.h"
 #include "GameFramework/GameModeBase.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -16,6 +17,12 @@ ABubblePawn::ABubblePawn()
 	MaterialBillboard = CreateDefaultSubobject<UMaterialBillboardComponent>("MaterialBillboard");
 	MaterialBillboard->SetupAttachment(GetRootComponent());
 
+}
+
+void ABubblePawn::BeginPlay()
+{
+	Super::BeginPlay();
+	
 	GetCollisionComponent()->OnComponentHit.AddDynamic(this, &ThisClass::OnHit);
 }
 
@@ -28,18 +35,24 @@ void ABubblePawn::SetIconMaterial(UMaterial* Material)
 	MaterialBillboard->SetElements(SpriteElements);
 }
 
+UFloatingPawnMovement* ABubblePawn::GetFloatingMovement()
+{
+	return Cast<UFloatingPawnMovement>(MovementComponent);
+}
+
 void ABubblePawn::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
                         FVector NormalImpulse, const FHitResult& Hit)
 {
 	AGameModeBase* GameMode = UGameplayStatics::GetGameMode(this);
 	UBubbleSystemComponent* BubbleSystem = GameMode->GetComponentByClass<UBubbleSystemComponent>();
+	ABubblePawn* OtherBubble = Cast<ABubblePawn>(OtherActor);
 
-	if (BubbleSystem)
+	if (IsPlayerControlled() && BubbleSystem && OtherBubble)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Green, FString::Printf(TEXT("%s"), *FString(__FUNCTION__)));
-	}
-	else
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, FString::Printf(TEXT("%s"), *FString(__FUNCTION__)));
+		if (BubbleSystem)
+		{
+			BubbleSystem->Collide(OtherBubble->BubbleType);
+			OtherBubble->Destroy();
+		}
 	}
 }
