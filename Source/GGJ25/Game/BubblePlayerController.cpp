@@ -25,7 +25,7 @@ void ABubblePlayerController::OnPossess(APawn* InPawn)
 	Super::OnPossess(InPawn);
 	BubblePawn = Cast<ABubblePawn>(InPawn);
 }
-
+ 
 void ABubblePlayerController::Input_Move(const FInputActionValue& Value)
 {
 	float MovementValue = Value.Get<float>();
