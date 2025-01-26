@@ -40,11 +40,6 @@ void UBubbleSystemComponent::BeginPlay()
 	OnPlayerBubbleAssignedEvent.Broadcast();
 }
 
-void UBubbleSystemComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-}
-
 void UBubbleSystemComponent::CreateBubbles()
 {
 	int MaxBubblesToSpawn = MaxBubblesPerSecond / BubbleSpawnIntervalSeconds;

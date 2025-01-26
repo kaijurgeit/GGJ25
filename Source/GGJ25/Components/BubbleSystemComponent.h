@@ -43,6 +43,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCreateBubbleEvent, EBubbleType, B
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSuccessfulMatchEvent);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFailedMatchEvent);
 
+class UBubbleMaterialDataAsset;
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class GGJ25_API UBubbleSystemComponent : public UActorComponent
 {
@@ -53,7 +55,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "GGJ25|Gameplay")
 	void Collide(EBubbleType BubbleType);
-
+	
 	UPROPERTY(BlueprintAssignable, Category = "GGJ25|Gameplay")
 	FOnPlayerBubbleAssignedEvent OnPlayerBubbleAssignedEvent;
 
@@ -74,6 +76,9 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly)
 	TArray<FBubbleMatching> BubbleMatchEntries;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GGJ25|Gameplay")
+	TObjectPtr<UBubbleMaterialDataAsset> BubbleTypeMaterialData;
 
 	UPROPERTY(EditDefaultsOnly)
 	float MaxBubblesPerSecond;
@@ -89,9 +94,6 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-
-public:	
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
 	std::map<EBubbleType, FBubbleMatching> BubbleMatching;
