@@ -9,14 +9,18 @@
 void ABubbleAIController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-
-	GetPawn()->AddMovementInput(MoveDirection, 1.f);
 }
 
 void ABubbleAIController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	BubblePawn = CastChecked<ABubblePawn>(InPawn);
-	GetFloatingMovement()->MaxSpeed = Speed;
+	
+
+	// BubblePawn = CastChecked<ABubblePawn>(InPawn);
+	// UFloatingPawnMovement* Movement = Cast<UFloatingPawnMovement>(BubblePawn->GetMovementComponent());
+	// Movement->MaxSpeed = Speed;
+
+	// FVector Origin = BubblePawn->GetActorLocation();
+	// FVector Target = FVector(Origin.X, YOffset, Origin.Z);
 }

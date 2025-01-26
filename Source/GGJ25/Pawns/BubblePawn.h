@@ -3,30 +3,42 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameFramework/DefaultPawn.h"
 #include "GameFramework/Pawn.h"
 #include "BubblePawn.generated.h"
 
+class UMaterialBillboardComponent;
 struct FInputActionValue;
 class USphereComponent;
 class UFloatingPawnMovement;
+enum class EBubbleType : uint8;
+
 
 UCLASS()
-class GGJ25_API ABubblePawn : public APawn
+class GGJ25_API ABubblePawn : public ADefaultPawn
 {
 	GENERATED_BODY()
-
+	
 public:
 	ABubblePawn();
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override {};
 
-	UFloatingPawnMovement* GetFloatingMovement();
+	UFUNCTION(BlueprintCallable)
+	virtual void SetIconMaterial(UMaterial* Material);
 
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GGJ25|Movement")
-	TObjectPtr<USphereComponent> SphereComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "GGJ25|Pawn")
+	EBubbleType BubbleType;
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GGJ25|Movement")
-	TObjectPtr<UStaticMeshComponent> Mesh;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GGJ25|Movement")
-	TObjectPtr<UFloatingPawnMovement> FloatingMovement;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GGJ25|Pawn")
+	TObjectPtr<UMaterialBillboardComponent> MaterialBillboard;
+
+private:
+	UFUNCTION()
+	void OnHit(
+		UPrimitiveComponent* HitComponent,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		FVector NormalImpulse,
+		const FHitResult& Hit);
 };

@@ -10,9 +10,16 @@ UENUM(BlueprintType)
 enum class EBubbleType : uint8
 {
 	None = 0 UMETA(Hidden),
-	Red,
-	Green,
-	Blue,
+	Cat,
+	Grandma,
+	Nerd,
+	Joystick,
+	Burger,
+	Fatty,
+	Bicyclist,
+	Bicycle,
+	Car,
+	RichGuy,
 	End UMETA(Hidden)
 };
 
@@ -36,6 +43,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCreateBubbleEvent, EBubbleType, B
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSuccessfulMatchEvent);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFailedMatchEvent);
 
+class UBubbleMaterialDataAsset;
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class GGJ25_API UBubbleSystemComponent : public UActorComponent
 {
@@ -46,7 +55,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "GGJ25|Gameplay")
 	void Collide(EBubbleType BubbleType);
-
+	
 	UPROPERTY(BlueprintAssignable, Category = "GGJ25|Gameplay")
 	FOnPlayerBubbleAssignedEvent OnPlayerBubbleAssignedEvent;
 
@@ -61,9 +70,15 @@ public:
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GGJ25|Gameplay")
 	EBubbleType CurrentPlayerBubbleType;
+
+	UPROPERTY(BlueprintReadOnly, Category = "GGJ25|Gameplay")
+	TArray<EBubbleType> MatchingPlayerBubbleTypes;
 	
 	UPROPERTY(EditDefaultsOnly)
 	TArray<FBubbleMatching> BubbleMatchEntries;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GGJ25|Gameplay")
+	TObjectPtr<UBubbleMaterialDataAsset> BubbleTypeMaterialData;
 
 	UPROPERTY(EditDefaultsOnly)
 	float MaxBubblesPerSecond;
@@ -80,13 +95,11 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-public:	
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
 private:
 	std::map<EBubbleType, FBubbleMatching> BubbleMatching;
 	FTimerHandle TimerHandle;
 
 	void CreateBubbles();
+	void UpdateMatchingPlayerBubbleTypes();
 	static EBubbleType GetRandomBubbleType();
 };
