@@ -61,6 +61,9 @@ public:
 	
 	UPROPERTY(BlueprintReadOnly, Category = "GGJ25|Gameplay")
 	EBubbleType CurrentPlayerBubbleType;
+
+	UPROPERTY(BlueprintReadOnly, Category = "GGJ25|Gameplay")
+	TArray<EBubbleType> MatchingPlayerBubbleTypes;
 	
 	UPROPERTY(EditDefaultsOnly)
 	TArray<FBubbleMatching> BubbleMatchEntries;
@@ -88,5 +91,6 @@ private:
 	FTimerHandle TimerHandle;
 
 	void CreateBubbles();
+	void UpdateMatchingPlayerBubbleTypes();
 	static EBubbleType GetRandomBubbleType();
 };
