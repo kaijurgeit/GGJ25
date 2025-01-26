@@ -14,12 +14,20 @@ enum class EBubbleType : uint8
 	Grandma,
 	Nerd,
 	Joystick,
-	Burger,
-	Fatty,
 	Bicyclist,
 	Bicycle,
 	Car,
 	RichGuy,
+	Skateboard,
+	RichGirl,
+	ShoppingBags,
+	Hairspray,
+	Pills,
+	Rock,
+	Guitar,
+	Punk,
+	Techno,
+	Book,
 	End UMETA(Hidden)
 };
 
