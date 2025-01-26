@@ -50,6 +50,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerBubbleAssignedEvent);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCreateBubbleEvent, EBubbleType, BubbleType);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSuccessfulMatchEvent);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFailedMatchEvent);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMatchResultSignature);
 
 class UBubbleMaterialDataAsset;
 
@@ -76,13 +77,13 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "GGJ25|Gameplay")
 	FOnFailedMatchEvent OnFailedMatchEvent;
 	
-	UPROPERTY(BlueprintReadOnly, Category = "GGJ25|Gameplay")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GGJ25|Gameplay")
 	EBubbleType CurrentPlayerBubbleType;
 
 	UPROPERTY(BlueprintReadOnly, Category = "GGJ25|Gameplay")
 	TArray<EBubbleType> MatchingPlayerBubbleTypes;
 	
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	TArray<FBubbleMatching> BubbleMatchEntries;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "GGJ25|Gameplay")

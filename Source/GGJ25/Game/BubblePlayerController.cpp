@@ -5,6 +5,8 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "GameFramework/FloatingPawnMovement.h"
+#include "GameFramework/PawnMovementComponent.h"
 #include "Pawns/BubblePawn.h"
 
 void ABubblePlayerController::SetupInputComponent()
@@ -29,5 +31,6 @@ void ABubblePlayerController::OnPossess(APawn* InPawn)
 void ABubblePlayerController::Input_Move(const FInputActionValue& Value)
 {
 	float MovementValue = Value.Get<float>();
+	
 	BubblePawn->AddMovementInput(FVector::ForwardVector, MovementValue);
 }

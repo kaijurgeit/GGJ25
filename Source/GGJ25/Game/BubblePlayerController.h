@@ -27,6 +27,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "GGJ25|Input")
 	TObjectPtr<UInputAction> MoveAction;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GGJ25|AI")	
+	float Speed;
 
 private:
 	TObjectPtr<ABubblePawn> BubblePawn;

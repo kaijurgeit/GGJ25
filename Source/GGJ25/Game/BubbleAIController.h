@@ -29,9 +29,10 @@ protected:
 	float YOffset;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GGJ25|AI")
-	FVector MoveDirection;
+	FVector MoveTarget;
 
 	ABubblePawn* GetBubblePawn() { return BubblePawn; }
+	
 
 private:
 	UPROPERTY()
